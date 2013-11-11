@@ -202,7 +202,7 @@ Digite o comando <b>"exit"</b> e depois digite o mesmo comando <b>"exit"</b> nov
 
 Caso apareça a mensagem:
 
-<b>Could not open input <i>file: app/console</i></b>
+    <b>Could not open input <i>file: app/console</i></b>
 
 Finalize o terminal com <b>"exit"</b>
 
