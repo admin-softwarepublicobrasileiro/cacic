@@ -168,7 +168,7 @@ parameters:
      secret: d7c123f25645010985ca27c1015bc76797
      database_path: null
 
-Digite </b>"CTRL+X"</b> para fechar 
+Digite <b>"CTRL+X"</b> para fechar 
 
 Confirme com <b>"Y + Enter"</b>
 
@@ -186,7 +186,7 @@ Instalação dos vendors
 
 Aguarde o fim da instalação (este processo pode levar alguns minutos) 
 
-Digite o comando "exit" e depois digite o mesmo comando "exit" novamente. 
+Digite o comando <b>"exit"</b> e depois digite o mesmo comando <b>"exit"</b> novamente. 
 
 Carregando os assets: (necessário haver o "java" instalado) 
 
@@ -198,11 +198,11 @@ Carregando os assets: (necessário haver o "java" instalado)
 
     # php app/console doctrine:fixtures:load 
 
-Digite o comando </b>"exit"</b> e depois digite o mesmo comando </b>"exit"</b> novamente. 
+Digite o comando <b>"exit"</b> e depois digite o mesmo comando <b>"exit"</b> novamente. 
 
 Caso apareça a mensagem:
 
-<i>Could not open input <i>file: app/console</i></b>
+<b>Could not open input <i>file: app/console</i></b>
 
 Finalize o terminal com <b>"exit"</b>
 
