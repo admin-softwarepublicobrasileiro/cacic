@@ -117,7 +117,7 @@
 <h2>
 <a name="4---montando-ambiente-de-desenvolvimento" class="anchor" href="#4---montando-ambiente-de-desenvolvimento"><span class="octicon octicon-link"></span></a>4 - Montando ambiente de desenvolvimento</h2>
 
-<p>Baixe o código do repositório oficial (necessário o <b>subversion"</b>, que foi previamente instalado) </p>
+<p>Baixe o código do repositório oficial (necessário o <b>subversion"</b>, que foi previamente instalado).</p>
 
 <p>Após instalação do <b>“subversion”</b> execute os comandos abaixo: </p>
 
@@ -126,7 +126,7 @@
 # chown -R www-data.www-data gerente 
 </code></pre>
 
-<p>Crie um link simbólico da sua pasta web para o Apache </p>
+<p>Crie um link simbólico da sua pasta web para o Apache.</p>
 
 <pre><code># ln -s /srv/gerente/web /var/www/cacic 
 </code></pre>
@@ -158,7 +158,7 @@ $ createuser -D -R -S -w cacic
 <pre><code># nano /etc/postgresql/9.1/main/pg_hba.conf 
 </code></pre>
 
-<p>Procure as linhas abaixo. (estão logo no início do texto) </p>
+<p>Procure as linhas abaixo. (estão logo no início do texto).</p>
 
 <pre><code># PostgreSQL Client Authentication Configuration File
 # ===================================================
@@ -177,7 +177,7 @@ $ createuser -D -R -S -w cacic
 # hostnossl DATABASE USER ADDRESS METHOD [OPTIONS]
 </code></pre>
 
-<p>Agora, acrescente as próximas linhas. Sem o <b>“#”</b> </p>
+<p>Agora, acrescente as próximas linhas. (Sem o <b>“#”</b>) </p>
 
 <pre><code>host cacic cacic 127.0.0.1/32 trust  
 host cacic cacic localhost trust  
@@ -199,7 +199,7 @@ Type "help" for help.
 cacic=&gt;
 </code></pre>
 
-<p>Digite <b>"\q"</b>, depois <b>"exit"</b></p>
+<p>Digite <b>"\q"</b>, depois <b>"exit"</b>.</p>
 
 <pre><code>$ exit
 </code></pre>
@@ -231,9 +231,9 @@ cacic=&gt;
  database_path: null
 </code></pre>
 
-<p>Digite <b>"CTRL+X"</b> para fechar </p>
+<p>Digite <b>"CTRL+X"</b> para fechar. </p>
 
-<p>Confirme com <b>"Y + Enter"</b></p>
+<p>Confirme com <b>"Y + Enter"</b>.</p>
 
 <h2>
 <a name="53---executando-comandos-do-symfony" class="anchor" href="#53---executando-comandos-do-symfony"><span class="octicon octicon-link"></span></a>5.3 - Executando comandos do Symfony</h2>
@@ -245,12 +245,12 @@ $ bash
 $ cd /srv/gerente
 </code></pre>
 
-<p>Instalação dos vendors </p>
+<p>Instalação dos vendors. </p>
 
 <pre><code>$ php composer.phar install 
 </code></pre>
 
-<p>Aguarde o fim da instalação (este processo pode levar alguns minutos) </p>
+<p>Aguarde o fim da instalação (este processo pode levar alguns minutos). </p>
 
 <p>Digite o comando <b>"exit"</b> e depois digite o mesmo comando <b>"exit"</b> novamente. </p>
 
@@ -274,7 +274,7 @@ php app/console assetic:dump
 <pre><code>Could not open input file: app/console
 </code></pre>
 
-<p>Finalize o terminal com <b>"exit"</b></p>
+<p>Finalize o terminal com <b>"exit"</b>.</p>
 
 <p>Terminada a instalação e configuração do Gerente Cacic 3.0, execute o navegador.</p>
 
@@ -290,7 +290,7 @@ php app/console assetic:dump
 
 <p>Pressione <b>"enter"</b>.</p>
 
-<p>Clique em <i>app.php</i></p>
+<p>Clique em <i>app.php</i>.</p>
 
 <p>Entre com o usuário e a senha.</p>
 
