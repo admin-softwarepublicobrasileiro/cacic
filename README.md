@@ -27,9 +27,9 @@ Foi utilizado para este tutorial o “Terminal” em idioma inglês, então as c
 
 Instale os pacotes que você vai precisar:
 
-apt-get -y install postgresql apache2 php5 php5-pgsql php5-gd php5-mcrypt libapache2-mod-php5 php5-ldap php-pear subversion  git  openjdk-7-jre  
+    apt-get -y install postgresql apache2 php5 php5-pgsql php5-gd php5-mcrypt libapache2-mod-php5 php5-ldap php-pear subversion  git  openjdk-7-jre  
 
- Com este comando irá instalar todos os pacotes necessários.
+Com este comando irá instalar todos os pacotes necessários.
 
 ## 3 – Configurando o PostgreSQL:
 
@@ -37,7 +37,7 @@ O arquivo "php.ini" vem com fuso horário da Europa, logo precisamos configurá-
 
 Edite o arquivo "php.ini" através do comando abaixo:
 
-nano /etc/php5/apache2/php.ini 
+    nano /etc/php5/apache2/php.ini 
 
 Quando o arquivo abrir digite "CTRL + W" para abrir a ferramenta de busca e digite "Module Settings" 
 
@@ -45,13 +45,12 @@ Você verá o comando abaixo:
 
 [Date] 
 
-; Defines the default timezone used by the date functions
-
-; http://php.net/date.timezone
+    ; Defines the default timezone used by the date functions
+    ; http://php.net/date.timezone
 
 Na linha imediata abaixo digite: 
 
-date.timezone = America/Sao_Paulo 
+    date.timezone = America/Sao_Paulo 
 
 Em alguns casos, pode ser que já tenha na linha ";date.timezone =", neste caso complete com "America/Sao_Paulo".
 
@@ -65,7 +64,7 @@ Confirme a alteração com "Y + Enter"
 
 Como "root" reinicie o Apache.
 
-# /etc/init.d/apache2 restart 
+    # /etc/init.d/apache2 restart 
 
 
 ## 4 - Montando ambiente de desenvolvimento
@@ -74,16 +73,13 @@ Baixe o código do repositório oficial (necessário o "subversion", que foi pre
 
 Após instalação do “subversion” execute os comandos abaixo: 
 
-# cd /srv 
-
-# svn --username SEU_USER_DO_PORTAL co http://svn.softwarepublico.gov.br/svn/cacic/cacic/tags/3.0b1/gerente
-
-# chown -R www-data.www-data gerente 
+    # cd /srv 
+    # svn --username SEU_USER_DO_PORTAL co http://svn.softwarepublico.gov.br/svn/cacic/cacic/tags/3.0b1/gerente
+    # chown -R www-data.www-data gerente 
 
 Crie um link simbólico da sua pasta web para o Apache 
 
-# ln -s /srv/gerente/web /var/www/cacic 
-
+    # ln -s /srv/gerente/web /var/www/cacic 
 
 ## 5 - Crie banco de dados para o Symfony - PostgreSQL
 
@@ -91,28 +87,25 @@ Crie um link simbólico da sua pasta web para o Apache
 
 Execute os seguintes comandos no terminal:
 
-$ sudo su 
-
-# su - postgres
-
-$ createuser -D -R -S -w cacic
+    $ sudo su 
+    # su - postgres
+    $ createuser -D -R -S -w cacic
 
 Se você pretende usar o modulo do importador, substitua o "-S" por "-s"
 
 Crie o banco com o comando abaixo: 
 
-$ createdb -w -O cacic cacic 
-
+    $ createdb -w -O cacic cacic 
 
 ## 5.1 - Liberando acesso ao Banco:
 
 Edite o arquivo "/etc/pg_hba.conf":
 
-  # nano /etc/postgresql/9.1/main/pg_hba.conf 
+    # nano /etc/postgresql/9.1/main/pg_hba.conf 
 
-  Procure as linhas abaixo. (estão logo no início do texto) 
+Procure as linhas abaixo. (estão logo no início do texto) 
 
-  # PostgreSQL Client Authentication Configuration File
+    # PostgreSQL Client Authentication Configuration File
 
   # ===================================================
 
@@ -122,46 +115,33 @@ Edite o arquivo "/etc/pg_hba.conf":
 
   # documentation for a complete description of this file. A short
 
-  # synopsis follows.
+    # synopsis follows.
+    #
+    # This file controls: which hosts are allowed to connect, how clients
+    # are authenticated, which PostgreSQL user names they can use, which
+    # databases they can access. Records take one of these forms:
+    #
+    # local DATABASE USER METHOD [OPTIONS]
+    # host DATABASE USER ADDRESS METHOD [OPTIONS]
+    # hostssl DATABASE USER ADDRESS METHOD [OPTIONS]
+    # hostnossl DATABASE USER ADDRESS METHOD [OPTIONS]
 
-  #
+Agora, acrescente as próximas linhas. Sem o “#” 
 
-  # This file controls: which hosts are allowed to connect, how clients
-  
-  # are authenticated, which PostgreSQL user names they can use, which
-
-  # databases they can access. Records take one of these forms:
-
-  #
-
-  # local DATABASE USER METHOD [OPTIONS]
-
-  # host DATABASE USER ADDRESS METHOD [OPTIONS]
-  
-  # hostssl DATABASE USER ADDRESS METHOD [OPTIONS]
-
-  # hostnossl DATABASE USER ADDRESS METHOD [OPTIONS]
-
-  Agora, acrescente as próximas linhas. Sem o “#” 
-
-  host cacic cacic 127.0.0.1/32 trust  
-
-  host cacic cacic localhost trust  
+    host cacic cacic 127.0.0.1/32 trust  
+    host cacic cacic localhost trust  
 
 Digite "CTRL + X" para sair, confirme com "y" e "enter".  
 
 Reinicie o banco de dados:
 
-  $ /etc/init.d/postgresql restart 
-
+    $ /etc/init.d/postgresql restart 
 
 Execute a linha a baixo e verifique se a mesma se encontra igual ao exemplo: 
 
-  $ psql -U cacic -h localhost cacic  
-
-psql (9.1.9)
-
-SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
+    $ psql -U cacic -h localhost cacic  
+    psql (9.1.9)
+    SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
 
 Type "help" for help.
 
@@ -169,80 +149,61 @@ cacic=>
 
 Digite "\q", depois "exit"
 
-  $ exit
-
+    $ exit
 
 ## 5.2 - Configurando o arquivo parameters.yml
 
 Abra o arquivo "parameters.yml" conforme o comando abaixo:
 
-# nano /srv/gerente/app/config/parameters.yml
+    # nano /srv/gerente/app/config/parameters.yml
 
 Adicione as seguintes linhas: (este arquivo conterá somente essas linhas) 
 
 parameters: 
 
      database_driver: pdo_pgsql
-
      database_host: 127.0.0.1
-
      database_port: null
-
      database_name: cacic
-
      database_user: cacic
-
      database_password: null
-
      mailer_transport: smtp
-
      mailer_host: 127.0.0.1
-
      mailer_user: null
-
      mailer_password: null
-
      locale: pt_BR
-
      secret: d7c123f25645010985ca27c1015bc76797
-
      database_path: null
 
 Digite "CTRL+X" para fechar 
 
 Confirme com "Y + Enter"
 
-
 ## 5.3 - Executando comandos do Symfony
 
 Execute os comandos do symfony necessários para o sistema funcionar: 
 
-  # su - www-data  
-
-  $ bash
-
-  $ cd /srv/gerente
+    # su - www-data  
+    $ bash
+    $ cd /srv/gerente
 
 Instalação dos vendors 
 
-  $ php composer.phar install 
+    $ php composer.phar install 
 
 Aguarde o fim da instalação (este processo pode levar alguns minutos) 
 
 Digite o comando "exit" e depois digite o mesmo comando "exit" novamente. 
 
 Carregando os assets: (necessário haver o "java" instalado) 
-php app/console doctrine:schema:update --force
 
-  php app/console assets:install --symlink
-
-  php app/console assetic:dump
-
-  
+    php app/console doctrine:schema:update --force
+    php app/console assets:install --symlink
+    php app/console assetic:dump
 
 ## 5.4 - Carregando dados iniciais 
 
-  # php app/console doctrine:fixtures:load 
+    # php app/console doctrine:fixtures:load 
 
 Digite o comando "exit" e depois digite o mesmo comando "exit" novamente. 
 
@@ -263,7 +224,7 @@ ABRA O NAVEGADOR:
 
 Digite:
 
-  http://localhost/cacic/
+    http://localhost/cacic/
 
 Pressione "enter".
 
@@ -271,6 +232,5 @@ Clique em app.php
 
 Entre com o usuário e a senha.
 
-  Usuário: admin
-
-  Senha: 123456  
+    Usuário: admin
+    Senha: 123456  
