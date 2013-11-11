@@ -2,25 +2,25 @@ Este roteiro irá orientá-lo como fazer uma NOVA instalação do Gerente Cacic 
 
 A instalação ocorre basicamente por linhas de comando através do Terminal, para tanto, acesse o Painel Inicial (Launcher) que fica localizado no canto superior esquerdo de sua tela.
 
-Após aparecer a opção de busca digite "Terminal" e pressione a tecla "Enter". Agora seguiremos com os comandos dentro do Terminal.
+Após aparecer a opção de busca digite <b>"Terminal"</b> e pressione a tecla <b>"Enter"</b>. Agora seguiremos com os comandos dentro do Terminal.
 
-Caso não o encontre utilize as teclas de atalho “CTRL + ALT + T”.
+Caso não o encontre utilize as teclas de atalho <b>“CTRL + ALT + T”</b>.
 
 ## 1 - Terminal
 
 Observação sobre o uso do terminal:
 
-Dentro do terminal o cursor ficará sempre depois de "$" ou "#".
+Dentro do terminal o cursor ficará sempre depois de <b>"$"</b> ou <b>"#"</b>.
 
-Sempre que o comando a ser copiado for precedido por "$", significa que este é um comando de usuário normal;
+Sempre que o comando a ser copiado for precedido por <b>"$"</b>, significa que este é um comando de usuário normal;
 
-Sempre que o comando a ser copiado for precedido por "#", significa que este é um comando de usuário “root”.
+Sempre que o comando a ser copiado for precedido por <b>"#"</b>, significa que este é um comando de usuário <b>“root”</b>.
 
-Caso o comando a ser copiado não seja precedido por "$" nem por "#", significa que este comando pode ser executado sem restrições.
+Caso o comando a ser copiado não seja precedido por <b>"$"</b> nem por <b>"#"</b>, significa que este comando pode ser executado sem restrições.
 
-Para acessar como “root” digite "sudo su".
+Para acessar como <b>“root”</b> digite <b>"sudo su"</b>.
 
-Foi utilizado para este tutorial o “Terminal” em idioma inglês, então as confirmações apresentadas aqui estão em (Yes/Y ou No/N), caso seu sistema esteja em português confirme com (Sim/S ou Não/N)
+Foi utilizado para este tutorial o <b>“Terminal”</b> em idioma inglês, então as confirmações apresentadas aqui estão em (Yes/Y ou No/N), caso seu sistema esteja em português confirme com (Sim/S ou Não/N)
 
 
 ## 2 - Instalando os Pacotes necessários:
@@ -33,13 +33,13 @@ Com este comando irá instalar todos os pacotes necessários.
 
 ## 3 – Configurando o PostgreSQL:
 
-O arquivo "php.ini" vem com fuso horário da Europa, logo precisamos configurá-lo para o Brasil. 
+O arquivo <i>"php.ini"</i> vem com fuso horário da Europa, logo precisamos configurá-lo para o Brasil. 
 
-Edite o arquivo "php.ini" através do comando abaixo:
+Edite o arquivo <i>"php.ini"</i> através do comando abaixo:
 
     nano /etc/php5/apache2/php.ini 
 
-Quando o arquivo abrir digite "CTRL + W" para abrir a ferramenta de busca e digite "Module Settings" 
+Quando o arquivo abrir digite <b>"CTRL + W"</b> para abrir a ferramenta de busca e digite <b>"Module Settings"</b>. 
 
 Você verá o comando abaixo:
 
@@ -52,15 +52,15 @@ Na linha imediata abaixo digite:
 
     date.timezone = America/Sao_Paulo 
 
-Em alguns casos, pode ser que já tenha na linha ";date.timezone =", neste caso complete com "America/Sao_Paulo".
+Em alguns casos, pode ser que já tenha na linha <b>";date.timezone ="</b>, neste caso complete com <b>"America/Sao_Paulo"</b>.
 
-Nã esqueça de remover o "ponto e virgula" 
+Não esqueça de remover o <b>"ponto e virgula"</b>.
 
 Caso já esteja atualizado, continue.
 
-Digite "CTRL + X" para salvar, 
+Digite <b>"CTRL + X"</b> para salvar, 
 
-Confirme a alteração com "Y + Enter"
+Confirme a alteração com <b>"Y + Enter"</b>.
 
 Como "root" reinicie o Apache.
 
@@ -69,9 +69,9 @@ Como "root" reinicie o Apache.
 
 ## 4 - Montando ambiente de desenvolvimento
 
-Baixe o código do repositório oficial (necessário o "subversion", que foi previamente instalado) 
+Baixe o código do repositório oficial (necessário o <b>subversion"</b>, que foi previamente instalado) 
 
-Após instalação do “subversion” execute os comandos abaixo: 
+Após instalação do <b>“subversion”</b> execute os comandos abaixo: 
 
     # cd /srv 
     # svn --username SEU_USER_DO_PORTAL co http://svn.softwarepublico.gov.br/svn/cacic/cacic/tags/3.0b1/gerente
@@ -83,7 +83,7 @@ Crie um link simbólico da sua pasta web para o Apache
 
 ## 5 - Crie banco de dados para o Symfony - PostgreSQL
 
-(É possível que já exista o banco de dados criado, caso isso ocorra passe para o item 5.0).
+(É possível que já exista o banco de dados criado, caso isso ocorra passe para o item 6).
 
 Execute os seguintes comandos no terminal:
 
@@ -91,7 +91,7 @@ Execute os seguintes comandos no terminal:
     # su - postgres
     $ createuser -D -R -S -w cacic
 
-Se você pretende usar o modulo do importador, substitua o "-S" por "-s"
+Se você pretende usar o modulo do importador, substitua o <b>"-S"</b> por <b>"-s"</b>.
 
 Crie o banco com o comando abaixo: 
 
@@ -99,22 +99,17 @@ Crie o banco com o comando abaixo:
 
 ## 5.1 - Liberando acesso ao Banco:
 
-Edite o arquivo "/etc/pg_hba.conf":
+Edite o arquivo <b>"/etc/pg_hba.conf"</b>:
 
     # nano /etc/postgresql/9.1/main/pg_hba.conf 
 
 Procure as linhas abaixo. (estão logo no início do texto) 
 
     # PostgreSQL Client Authentication Configuration File
-
-  # ===================================================
-
-  #
-
-  # Refer to the "Client Authentication" section in the PostgreSQL
-
-  # documentation for a complete description of this file. A short
-
+    # ===================================================
+    #
+    # Refer to the "Client Authentication" section in the PostgreSQL
+    # documentation for a complete description of this file. A short
     # synopsis follows.
     #
     # This file controls: which hosts are allowed to connect, how clients
@@ -126,12 +121,12 @@ Procure as linhas abaixo. (estão logo no início do texto)
     # hostssl DATABASE USER ADDRESS METHOD [OPTIONS]
     # hostnossl DATABASE USER ADDRESS METHOD [OPTIONS]
 
-Agora, acrescente as próximas linhas. Sem o “#” 
+Agora, acrescente as próximas linhas. Sem o <b>“#”</b> 
 
     host cacic cacic 127.0.0.1/32 trust  
     host cacic cacic localhost trust  
 
-Digite "CTRL + X" para sair, confirme com "y" e "enter".  
+Digite <b>"CTRL + X"</b> para sair, confirme com <b>"y"</b> e <b>"enter"</b>.  
 
 Reinicie o banco de dados:
 
@@ -142,18 +137,16 @@ Execute a linha a baixo e verifique se a mesma se encontra igual ao exemplo:
     $ psql -U cacic -h localhost cacic  
     psql (9.1.9)
     SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
+    Type "help" for help.
+    cacic=>
 
-Type "help" for help.
-
-cacic=>
-
-Digite "\q", depois "exit"
+Digite <b>"\q"</b>, depois <b>"exit"</b>
 
     $ exit
 
 ## 5.2 - Configurando o arquivo parameters.yml
 
-Abra o arquivo "parameters.yml" conforme o comando abaixo:
+Abra o arquivo <i>"parameters.yml"</i> conforme o comando abaixo:
 
     # nano /srv/gerente/app/config/parameters.yml
 
@@ -175,9 +168,9 @@ parameters:
      secret: d7c123f25645010985ca27c1015bc76797
      database_path: null
 
-Digite "CTRL+X" para fechar 
+Digite </b>"CTRL+X"</b> para fechar 
 
-Confirme com "Y + Enter"
+Confirme com <b>"Y + Enter"</b>
 
 ## 5.3 - Executando comandos do Symfony
 
@@ -205,13 +198,13 @@ Carregando os assets: (necessário haver o "java" instalado)
 
     # php app/console doctrine:fixtures:load 
 
-Digite o comando "exit" e depois digite o mesmo comando "exit" novamente. 
+Digite o comando </b>"exit"</b> e depois digite o mesmo comando </b>"exit"</b> novamente. 
 
 Caso apareça a mensagem:
 
-Could not open input file: app/console
+<i>Could not open input <i>file: app/console</i></b>
 
-finalise o terminal com "exit"
+Finalize o terminal com <b>"exit"</b>
 
 Terminada a instalação e configuração do Gerente Cacic 3.0, execute o navegador.
 
@@ -226,9 +219,9 @@ Digite:
 
     http://localhost/cacic/
 
-Pressione "enter".
+Pressione <b>"enter"</b>.
 
-Clique em app.php
+Clique em <i>app.php</i>
 
 Entre com o usuário e a senha.
 
