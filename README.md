@@ -69,7 +69,7 @@ Como "root" reinicie o Apache.
 
 ## 4 - Montando ambiente de desenvolvimento
 
-Baixe o código do repositório oficial (necessário o <b>subversion"</b>, que foi previamente instalado) 
+Baixe o código do repositório oficial (necessário o <b>subversion"</b>, que foi previamente instalado).
 
 Após instalação do <b>“subversion”</b> execute os comandos abaixo: 
 
@@ -77,7 +77,7 @@ Após instalação do <b>“subversion”</b> execute os comandos abaixo:
     # svn --username SEU_USER_DO_PORTAL co http://svn.softwarepublico.gov.br/svn/cacic/cacic/tags/3.0b1/gerente
     # chown -R www-data.www-data gerente 
 
-Crie um link simbólico da sua pasta web para o Apache 
+Crie um link simbólico da sua pasta web para o Apache.
 
     # ln -s /srv/gerente/web /var/www/cacic 
 
@@ -103,7 +103,7 @@ Edite o arquivo <b>"/etc/pg_hba.conf"</b>:
 
     # nano /etc/postgresql/9.1/main/pg_hba.conf 
 
-Procure as linhas abaixo. (estão logo no início do texto) 
+Procure as linhas abaixo. (estão logo no início do texto).
 
     # PostgreSQL Client Authentication Configuration File
     # ===================================================
@@ -121,7 +121,7 @@ Procure as linhas abaixo. (estão logo no início do texto)
     # hostssl DATABASE USER ADDRESS METHOD [OPTIONS]
     # hostnossl DATABASE USER ADDRESS METHOD [OPTIONS]
 
-Agora, acrescente as próximas linhas. Sem o <b>“#”</b> 
+Agora, acrescente as próximas linhas. (Sem o <b>“#”</b>) 
 
     host cacic cacic 127.0.0.1/32 trust  
     host cacic cacic localhost trust  
@@ -140,7 +140,7 @@ Execute a linha a baixo e verifique se a mesma se encontra igual ao exemplo:
     Type "help" for help.
     cacic=>
 
-Digite <b>"\q"</b>, depois <b>"exit"</b>
+Digite <b>"\q"</b>, depois <b>"exit"</b>.
 
     $ exit
 
@@ -168,9 +168,9 @@ parameters:
      secret: d7c123f25645010985ca27c1015bc76797
      database_path: null
 
-Digite <b>"CTRL+X"</b> para fechar 
+Digite <b>"CTRL+X"</b> para fechar. 
 
-Confirme com <b>"Y + Enter"</b>
+Confirme com <b>"Y + Enter"</b>.
 
 ## 5.3 - Executando comandos do Symfony
 
@@ -180,11 +180,11 @@ Execute os comandos do symfony necessários para o sistema funcionar:
     $ bash
     $ cd /srv/gerente
 
-Instalação dos vendors 
+Instalação dos vendors. 
 
     $ php composer.phar install 
 
-Aguarde o fim da instalação (este processo pode levar alguns minutos) 
+Aguarde o fim da instalação (este processo pode levar alguns minutos). 
 
 Digite o comando <b>"exit"</b> e depois digite o mesmo comando <b>"exit"</b> novamente. 
 
@@ -204,7 +204,7 @@ Caso apareça a mensagem:
 
     Could not open input file: app/console
 
-Finalize o terminal com <b>"exit"</b>
+Finalize o terminal com <b>"exit"</b>.
 
 Terminada a instalação e configuração do Gerente Cacic 3.0, execute o navegador.
 
@@ -221,7 +221,7 @@ Digite:
 
 Pressione <b>"enter"</b>.
 
-Clique em <i>app.php</i>
+Clique em <i>app.php</i>.
 
 Entre com o usuário e a senha.
 
