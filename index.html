@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Manual de Instalação do Cacic 3.0 by admin-softwarepublicobrasileiro</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Manual de Instalação do Cacic 3.0</h1>
+        <p></p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/admin-softwarepublicobrasileiro/cacic" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/admin-softwarepublicobrasileiro/cacic/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/admin-softwarepublicobrasileiro/cacic/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <p>Este roteiro irá orientá-lo como fazer uma NOVA instalação do Gerente Cacic 3.0 em máquinas com Sistema Operacional Ubuntu e Debian.</p>
+
+<p>A instalação ocorre basicamente por linhas de comando através do Terminal, para tanto, acesse o Painel Inicial (Launcher) que fica localizado no canto superior esquerdo de sua tela.</p>
+
+<p>Após aparecer a opção de busca digite <b>"Terminal"</b> e pressione a tecla <b>"Enter"</b>. Agora seguiremos com os comandos dentro do Terminal.</p>
+
+<p>Caso não o encontre utilize as teclas de atalho <b>“CTRL + ALT + T”</b>.</p>
+
+<h2>
+<a name="1---terminal" class="anchor" href="#1---terminal"><span class="octicon octicon-link"></span></a>1 - Terminal</h2>
+
+<p>Observação sobre o uso do terminal:</p>
+
+<p>Dentro do terminal o cursor ficará sempre depois de <b>"$"</b> ou <b>"#"</b>.</p>
+
+<p>Sempre que o comando a ser copiado for precedido por <b>"$"</b>, significa que este é um comando de usuário normal;</p>
+
+<p>Sempre que o comando a ser copiado for precedido por <b>"#"</b>, significa que este é um comando de usuário <b>“root”</b>.</p>
+
+<p>Caso o comando a ser copiado não seja precedido por <b>"$"</b> nem por <b>"#"</b>, significa que este comando pode ser executado sem restrições.</p>
+
+<p>Para acessar como <b>“root”</b> digite <b>"sudo su"</b>.</p>
+
+<p>Foi utilizado para este tutorial o <b>“Terminal”</b> em idioma inglês, então as confirmações apresentadas aqui estão em (Yes/Y ou No/N), caso seu sistema esteja em português confirme com (Sim/S ou Não/N)</p>
+
+<h2>
+<a name="2---instalando-os-pacotes-necess%C3%A1rios" class="anchor" href="#2---instalando-os-pacotes-necess%C3%A1rios"><span class="octicon octicon-link"></span></a>2 - Instalando os Pacotes necessários:</h2>
+
+<p>Instale os pacotes que você vai precisar:</p>
+
+<pre><code>apt-get -y install postgresql apache2 php5 php5-pgsql php5-gd php5-mcrypt libapache2-mod-php5 php5-ldap php-pear subversion  git  openjdk-7-jre  
+</code></pre>
+
+<p>Com este comando irá instalar todos os pacotes necessários.</p>
+
+<h2>
+<a name="3--configurando-o-postgresql" class="anchor" href="#3--configurando-o-postgresql"><span class="octicon octicon-link"></span></a>3 – Configurando o PostgreSQL:</h2>
+
+<p>O arquivo <i>"php.ini"</i> vem com fuso horário da Europa, logo precisamos configurá-lo para o Brasil. </p>
+
+<p>Edite o arquivo <i>"php.ini"</i> através do comando abaixo:</p>
+
+<pre><code>nano /etc/php5/apache2/php.ini 
+</code></pre>
+
+<p>Quando o arquivo abrir digite <b>"CTRL + W"</b> para abrir a ferramenta de busca e digite <b>"Module Settings"</b>. </p>
+
+<p>Você verá o comando abaixo:</p>
+
+<p>[Date] </p>
+
+<pre><code>; Defines the default timezone used by the date functions
+; http://php.net/date.timezone
+</code></pre>
+
+<p>Na linha imediata abaixo digite: </p>
+
+<pre><code>date.timezone = America/Sao_Paulo 
+</code></pre>
+
+<p>Em alguns casos, pode ser que já tenha na linha <b>";date.timezone ="</b>, neste caso complete com <b>"America/Sao_Paulo"</b>.</p>
+
+<p>Não esqueça de remover o <b>"ponto e virgula"</b>.</p>
+
+<p>Caso já esteja atualizado, continue.</p>
+
+<p>Digite <b>"CTRL + X"</b> para salvar, </p>
+
+<p>Confirme a alteração com <b>"Y + Enter"</b>.</p>
+
+<p>Como "root" reinicie o Apache.</p>
+
+<pre><code># /etc/init.d/apache2 restart 
+</code></pre>
+
+<h2>
+<a name="4---montando-ambiente-de-desenvolvimento" class="anchor" href="#4---montando-ambiente-de-desenvolvimento"><span class="octicon octicon-link"></span></a>4 - Montando ambiente de desenvolvimento</h2>
+
+<p>Baixe o código do repositório oficial (necessário o <b>subversion"</b>, que foi previamente instalado) </p>
+
+<p>Após instalação do <b>“subversion”</b> execute os comandos abaixo: </p>
+
+<pre><code># cd /srv 
+# svn --username SEU_USER_DO_PORTAL co http://svn.softwarepublico.gov.br/svn/cacic/cacic/tags/3.0b1/gerente
+# chown -R www-data.www-data gerente 
+</code></pre>
+
+<p>Crie um link simbólico da sua pasta web para o Apache </p>
+
+<pre><code># ln -s /srv/gerente/web /var/www/cacic 
+</code></pre>
+
+<h2>
+<a name="5---crie-banco-de-dados-para-o-symfony---postgresql" class="anchor" href="#5---crie-banco-de-dados-para-o-symfony---postgresql"><span class="octicon octicon-link"></span></a>5 - Crie banco de dados para o Symfony - PostgreSQL</h2>
+
+<p>(É possível que já exista o banco de dados criado, caso isso ocorra passe para o item 6).</p>
+
+<p>Execute os seguintes comandos no terminal:</p>
+
+<pre><code>$ sudo su 
+# su - postgres
+$ createuser -D -R -S -w cacic
+</code></pre>
+
+<p>Se você pretende usar o modulo do importador, substitua o <b>"-S"</b> por <b>"-s"</b>.</p>
+
+<p>Crie o banco com o comando abaixo: </p>
+
+<pre><code>$ createdb -w -O cacic cacic 
+</code></pre>
+
+<h2>
+<a name="51---liberando-acesso-ao-banco" class="anchor" href="#51---liberando-acesso-ao-banco"><span class="octicon octicon-link"></span></a>5.1 - Liberando acesso ao Banco:</h2>
+
+<p>Edite o arquivo <b>"/etc/pg_hba.conf"</b>:</p>
+
+<pre><code># nano /etc/postgresql/9.1/main/pg_hba.conf 
+</code></pre>
+
+<p>Procure as linhas abaixo. (estão logo no início do texto) </p>
+
+<pre><code># PostgreSQL Client Authentication Configuration File
+# ===================================================
+#
+# Refer to the "Client Authentication" section in the PostgreSQL
+# documentation for a complete description of this file. A short
+# synopsis follows.
+#
+# This file controls: which hosts are allowed to connect, how clients
+# are authenticated, which PostgreSQL user names they can use, which
+# databases they can access. Records take one of these forms:
+#
+# local DATABASE USER METHOD [OPTIONS]
+# host DATABASE USER ADDRESS METHOD [OPTIONS]
+# hostssl DATABASE USER ADDRESS METHOD [OPTIONS]
+# hostnossl DATABASE USER ADDRESS METHOD [OPTIONS]
+</code></pre>
+
+<p>Agora, acrescente as próximas linhas. Sem o <b>“#”</b> </p>
+
+<pre><code>host cacic cacic 127.0.0.1/32 trust  
+host cacic cacic localhost trust  
+</code></pre>
+
+<p>Digite <b>"CTRL + X"</b> para sair, confirme com <b>"y"</b> e <b>"enter"</b>.  </p>
+
+<p>Reinicie o banco de dados:</p>
+
+<pre><code>$ /etc/init.d/postgresql restart 
+</code></pre>
+
+<p>Execute a linha a baixo e verifique se a mesma se encontra igual ao exemplo: </p>
+
+<pre><code>$ psql -U cacic -h localhost cacic  
+psql (9.1.9)
+SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
+Type "help" for help.
+cacic=&gt;
+</code></pre>
+
+<p>Digite <b>"\q"</b>, depois <b>"exit"</b></p>
+
+<pre><code>$ exit
+</code></pre>
+
+<h2>
+<a name="52---configurando-o-arquivo-parametersyml" class="anchor" href="#52---configurando-o-arquivo-parametersyml"><span class="octicon octicon-link"></span></a>5.2 - Configurando o arquivo parameters.yml</h2>
+
+<p>Abra o arquivo <i>"parameters.yml"</i> conforme o comando abaixo:</p>
+
+<pre><code># nano /srv/gerente/app/config/parameters.yml
+</code></pre>
+
+<p>Adicione as seguintes linhas: (este arquivo conterá somente essas linhas) </p>
+
+<p>parameters: </p>
+
+<pre><code> database_driver: pdo_pgsql
+ database_host: 127.0.0.1
+ database_port: null
+ database_name: cacic
+ database_user: cacic
+ database_password: null
+ mailer_transport: smtp
+ mailer_host: 127.0.0.1
+ mailer_user: null
+ mailer_password: null
+ locale: pt_BR
+ secret: d7c123f25645010985ca27c1015bc76797
+ database_path: null
+</code></pre>
+
+<p>Digite <b>"CTRL+X"</b> para fechar </p>
+
+<p>Confirme com <b>"Y + Enter"</b></p>
+
+<h2>
+<a name="53---executando-comandos-do-symfony" class="anchor" href="#53---executando-comandos-do-symfony"><span class="octicon octicon-link"></span></a>5.3 - Executando comandos do Symfony</h2>
+
+<p>Execute os comandos do symfony necessários para o sistema funcionar: </p>
+
+<pre><code># su - www-data  
+$ bash
+$ cd /srv/gerente
+</code></pre>
+
+<p>Instalação dos vendors </p>
+
+<pre><code>$ php composer.phar install 
+</code></pre>
+
+<p>Aguarde o fim da instalação (este processo pode levar alguns minutos) </p>
+
+<p>Digite o comando <b>"exit"</b> e depois digite o mesmo comando <b>"exit"</b> novamente. </p>
+
+<p>Carregando os assets: (necessário haver o "java" instalado) </p>
+
+<pre><code>php app/console doctrine:schema:update --force
+php app/console assets:install --symlink
+php app/console assetic:dump
+</code></pre>
+
+<h2>
+<a name="54---carregando-dados-iniciais" class="anchor" href="#54---carregando-dados-iniciais"><span class="octicon octicon-link"></span></a>5.4 - Carregando dados iniciais</h2>
+
+<pre><code># php app/console doctrine:fixtures:load 
+</code></pre>
+
+<p>Digite o comando <b>"exit"</b> e depois digite o mesmo comando <b>"exit"</b> novamente. </p>
+
+<p>Caso apareça a mensagem:</p>
+
+<pre><code>Could not open input file: app/console
+</code></pre>
+
+<p>Finalize o terminal com <b>"exit"</b></p>
+
+<p>Terminada a instalação e configuração do Gerente Cacic 3.0, execute o navegador.</p>
+
+<hr><p>ABRA O NAVEGADOR:</p>
+
+<h2>
+<a name="6---abrindo-a-tela-de-login-do-gerente-cacic-30" class="anchor" href="#6---abrindo-a-tela-de-login-do-gerente-cacic-30"><span class="octicon octicon-link"></span></a>6 - Abrindo a tela de login do Gerente Cacic 3.0</h2>
+
+<p>Digite:</p>
+
+<pre><code>http://localhost/cacic/
+</code></pre>
+
+<p>Pressione <b>"enter"</b>.</p>
+
+<p>Clique em <i>app.php</i></p>
+
+<p>Entre com o usuário e a senha.</p>
+
+<pre><code>Usuário: admin
+Senha: 123456  
+</code></pre>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/admin-softwarepublicobrasileiro">admin-softwarepublicobrasileiro</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
